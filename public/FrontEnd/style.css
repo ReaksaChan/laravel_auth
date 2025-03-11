@@ -1,0 +1,12 @@
+.navbar-light .navbar-nav .nav-link {
+    color: #000;
+  }
+
+  #MDB-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .btnAll:hover {
+    color: white;
+  }
