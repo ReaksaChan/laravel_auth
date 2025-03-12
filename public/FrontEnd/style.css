@@ -10,3 +10,7 @@
   .btnAll:hover {
     color: white;
   }
+
+i, button {
+    color: rgb(241, 226, 108);
+}

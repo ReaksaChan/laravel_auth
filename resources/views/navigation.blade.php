@@ -1,7 +1,7 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top bg-light navbar-light mb-2">
+<nav class="navbar navbar-expand-lg fixed-top bg-light navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="#"><img id="MDB-logo" class=""
+      <a class="navbar-brand" href="{{ route('show.homepage') }}"><img id="MDB-logo" class=""
           src="{{ asset('FrontEnd/images/logo1.png') }}" alt="MDB Logo"
           draggable="false" height="30" /></a>
       <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent"
