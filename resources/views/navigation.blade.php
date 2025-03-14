@@ -19,12 +19,27 @@
           <li class="nav-item">
             <a class="nav-link mx-2" href="#!"><i class="fas fa-heart pe-2"></i>Trips</a>
           </li>
+          @guest
           <li class="nav-item ms-3">
-            <a class="btnAll btn btn-rounded fw-bold" href="{{ route('show.register') }}" style="background-color: rgb(248, 231, 143)">Register</a>
-          </li>
-          <li class="nav-item ms-3">
-            <a class="btnAll btn btn-rounded fw-bold" href="{{ route('show.login') }}" style="background-color: rgb(248, 231, 143)">Login</a>
-          </li>
+              <a class="btnAll btn btn-rounded fw-bold" href="{{ route('show.login') }}" style="background-color: rgb(248, 231, 143)">Login</a>
+            </li>
+            <li class="nav-item ms-3">
+                <a class="btnAll btn btn-rounded fw-bold" href="{{ route('show.register') }}" style="background-color: rgb(248, 231, 143)">Register</a>
+            </li>
+            @endguest
+
+            @auth
+                <li class="nav-item">
+                <span class=" mx-2">I'm {{ Auth::user()->name }}</span>
+                </li>
+
+                <li class="nav-item ms-3">
+                  <form action="{{ route('logout') }}" method="POST">
+                      @csrf
+                      <button class="btnAll btn btn-rounded fw-bold" style="background-color: rgb(248, 231, 143)">Logout</button>
+                  </form>
+                </li>
+            @endauth
         </ul>
       </div>
     </div>

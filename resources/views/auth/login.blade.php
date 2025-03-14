@@ -41,27 +41,35 @@
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In to Your Account</p>
 
                   <form class="mx-1 mx-md-4" action="{{ route('login') }}" method="POST">
-
+                    @csrf
+                    @if ($errors->any())
+                        <ul class="px-4 py-2 bg-red-100">
+                            @foreach ($errors->all() as $error)
+                            <li class="my-2 text-red-500">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="email" id="email" class="form-control" value="{{ old('email') }}" />
                         <label class="form-label" for="email">Your Email</label>
+                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required/>
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="password" id="password" class="form-control" />
                         <label class="form-label" for="password">Password</label>
+                        <input type="password" name="password" class="form-control" required>
                       </div>
                     </div>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Login</button>
+                      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Login</button>
                     </div>
+
 
                   </form>
 

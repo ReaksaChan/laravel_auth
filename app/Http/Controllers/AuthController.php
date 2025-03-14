@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -20,7 +21,7 @@ class AuthController extends Controller
 
     public function register(Request $request) {
         // dd($request->all());
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
@@ -35,51 +36,29 @@ class AuthController extends Controller
           Auth::login($user);
 
           return redirect()->route('show.homepage');
-    //     try {
-    //         $validation = Validator($request->all(), [
-    //             'name' => 'required|string|max:255',
-    //             'email' => 'required|email|unique:users',
-    //             'password' => 'required|string|min:8|confirmed'
-    //         ]);
-    //         if ($validation->fails()) {
-    //             return response()->json(
-    //                 [
-    //                     'status' => 'error',
-    //                     'msg' => $validation->getMessageBag(),
-    //                     'result' => [],
-    //                 ]
-    //             );
-    //         };
 
-
-    //         $data = User::create([
-    //             'name' => $request->name,
-    //             'email' => $request->email,
-    //             'password' => $request->password,
-    //         ]);
-    //         Log::debug('insertStatus: ', ['data' => $data->toArray()]);
-    //         $result = [
-    //             'status' => "success",
-    //             'msg' => "Form submitted successfully. Yehhhhhh",
-    //             'result' => []
-    //         ];
-    //         return response()->route('show.homepage');
-    //     }
-    //     catch (\Throwable $th) {
-    //         return response()->json(
-    //             [
-    //                 'status' => 'error',
-    //                 'icon' => 'error',
-    //                 'msg' => 'Insert data Error!',
-    //                 'result' => $th,
-    //                 'data' => [],
-    //             ]
-    //         );
-    //     }
     }
 
     public function login(Request $request) {
 
+        $validated = $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt($validated)) {
+            $request->session()->regenerate();
+            return redirect()->route('show.homepage');
+        }
+
+        // Return back with error messages instead of throwing ValidationException
+        return back()->withErrors([
+            'email' => 'Sorry, incorrect credentials.'
+        ])->withInput();
+
+    }
+
+    public function logout( Request $request) {
         Auth::logout();
 
         $request->session()->invalidate();

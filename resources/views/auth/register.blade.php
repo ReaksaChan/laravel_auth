@@ -68,43 +68,53 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" />
                         <label class="form-label" for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" />
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" />
                         <label class="form-label" for="email">Your Email</label>
+                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" />
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        {{-- <input type="password" id="password" class="form-control" />
-                        <label class="form-label" for="password">Password</label> --}}
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" required>
+                        {{-- <input type="password" id="password" class="form-control" /> --}}
+                        <label class="form-label" for="password">Password</label>
+                        {{-- <label for="password">Password:</label> --}}
+                        <input type="password" name="password" class="form-control"  required>
                       </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="password" id="password_confirmation" name="password_confirmation" />
+                        <label class="form-label" for="password_confirmation">Repeat your password</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation"  class="form-control" required/>
 
                         {{-- <label for="password_confirmation">Confirm Password:</label> --}}
                         {{-- <input type="password" name="password_confirmation" required> --}}
-                        <label class="form-label" for="password_confirmation">Repeat your password</label>
                       </div>
                     </div>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                       <button id="btnRegister" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Register</button>
                     </div>
+
+                    @if ($errors->any())
+                        <div>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </form>
                   <!-- validation errors -->
                     @if ($errors->any())
