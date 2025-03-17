@@ -11,7 +11,11 @@ class BooksController extends Controller
 
     public function index()
     {
-        return BookResource::collection(Book::with('ratings')->paginate(25));
+        $books = Book::with('ratings')->paginate(25);
+
+        return view('post', [
+            'books' => $books
+        ]);
     }
 
     public function store(Request $request)
@@ -19,6 +23,7 @@ class BooksController extends Controller
         $book = Book::create([
             'user_id' => $request->user()->id,
             'title' => $request->title,
+            'image' => $request->image,
             'description' => $request->description,
         ]);
 
